@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Muneez-Portfolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+<body class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200">
+
+  <!-- 🔹 Navbar -->
+  <header class="fixed top-0 left-0 w-full bg-white dark:bg-gray-800 shadow z-50">
+    <nav class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+      <h1 class="text-xl font-bold text-black">MUNEEZ KM</h1> <!-- 🔹 Change name -->
+      <ul class="flex space-x-6">
+        <li><a href="#about" class="hover:text-indigo-500">About</a></li>
+        <li><a href="#skills" class="hover:text-indigo-500">Skills</a></li>
+        <li><a href="#education" class="hover:text-indigo-500">Education</a></li>
+        <li><a href="#projects" class="hover:text-indigo-500">Projects</a></li>
+        <li><a href="#resume" class="hover:text-indigo-500">Resume</a></li>
+       <li><a href="#contact" class="hover:text-indigo-500">Contact</a></li>
+      </ul>
+      <button id="themeToggle" class="p-2 rounded-lg bg-black dark:bg-black">🌙</button>
+    </nav>
+  </header>
+
+  <main class="pt-20">
+    <!-- 🔹 About -->
+    <section id="about" class="bg-gray-200 dark:bg-gray-900 py-16 text-center">
+      <h2 class="text-3xl font-bold mb-4">About Me</h2>
+      <p class="text-lg leading-relaxed">
+        Hi, I’m <b>Muneez</b>“I am pursuing a Bachelor of Computer Applications (final year), with skills in Java, Python, SQL, and web technologies (HTML, CSS, JavaScript). I enjoy developing applications and working on innovative projects that combine creativity and logic. Currently, I am looking for internships or entry-level roles in software development and IT where I can apply my knowledge and grow as a professional.” <!-- 🔹 Change this -->
+      </p>
+    </section>
+
+    <!-- 🔹 Skills -->
+    <section id="skills" class="bg-white dark:bg-white py-16">
+      <div class="max-w-4xl mx-auto px-4">
+        <h2 class="text-3xl font-bold mb-8 text-center">Skills</h2>
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-6 text-center">
+          <div class="p-4 bg-gray-200  rounded-xl shadow"> Java</div>
+          <div class="p-4 bg-gray-200 rounded-xl shadow">Basic Python</div>
+          <div class="p-4 bg-gray-200  rounded-xl shadow"> HTML</div>
+          <div class="p-4 bg-gray-200  rounded-xl shadow">Basic CSS</div>
+          <div class="p-4 bg-gray-200 rounded-xl shadow">Basic JavaScript</div>
+          <div class="p-4 bg-gray-200  rounded-xl shadow">BasicSQL</div>
+          <div class="p-4 bg-gray-200  rounded-xl shadow">C</div>
+          <div class="p-4 bg-gray-200  rounded-xl shadow">C++</div>
+          <div class="p-4 bg-gray-200  rounded-xl shadow">Basic R</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 🔹 Education -->
+    <section id="education" class="bg-gray-200 dark:bg-gray-800 py-16">
+      <h2 class="text-3xl font-bold mb-6 text-center">Education</h2>
+      <ul class="space-y-4">
+        <li class="bg-white dark:bg-white p-4 rounded-lg shadow">
+          <b>BCA</b> :SBRR Mahajanas First Grade College ,Mysore University (2023 - 2026) <!-- 🔹 Change -->
+        </li>
+        <li class="bg-white dark:bg-white p-4 rounded-lg shadow">
+          <b>PUC</b> :St'Annes PU College , Virajpet (2020 - 2022) <!-- 🔹 Change -->
+        </li>
+      </ul>
+    </section>
+
+    <!-- 🔹 Projects -->
+    <section id="projects" class="bg-white dark:bg-white py-16">
+      <div class="max-w-4xl mx-auto px-4">
+        <h2 class="text-3xl font-bold mb-8 text-center">Projects</h2>
+        <div class="grid sm:grid-cols-1 gap-1">
+          <div class="bg-gray-200 p6 rounded-xl shadow ">
+            <h3 class="font-bold text-xl mb-2 text-center">Portfolio Website</h3>
+            <p>"A responsive portfolio website developed using HTML, CSS, and TailwindCSS, featuring structured sections for About, Education, Skills, and Contact to highlight my background and expertise." </p>
+          </div>
+          </div>
+      </div>
+    </section>
+<section id="resume" class="bg-gray-200 dark:bg-gray-800 py-16 text-center">
+  <h2 class="text-3xl font-bold mb-6">Resume</h2>
+  <div class="p-6 bg-white dark:bg-gray-900 rounded-xl shadow-lg inline-block">
+    <a href="muneez-resume.pdf" 
+       target="_blank" 
+       class="px-6 py-3 bg-gray-500 text-white font-semibold rounded-lg shadow hover:bg-gray-600 transition">
+       📄 View My Resume
+    </a>
+  </div>
+</section>
+
+<!-- 🔹 Contact -->
+    <section id="contact" class="bg-white dark:bg-white py-16 text-center">
+      <h2 class="text-3xl font-bold mb-4">Contact</h2>
+      <p>Email: <a href="muneezkm@gmail.com" class="text-indigo-500">muneezkm@gmail.com</a></p> <!-- 🔹 Change -->
+      <p>Phone: +91 8050804576</p> <!-- 🔹 Change -->
+      <div class="mt-6">
+        <a href="https://github.com/muneezkm" target="_blank" class="mx-2 text-indigo-500 hover:underline">GitHub</a>
+        <a href="https://www.linkedin.com/in/muneez-munzz" target="_blank" class="mx-2 text-indigo-500 hover:underline">LinkedIn</a>
+        <a href="https://wa.me/918050804576" target="_blank" class="mx-2 text-indigo-500 hover:underline">Whatsapp</a>
+      </div>
+    </section>
+ 
+ <section id="reserved" class="bg-gray-200 dark:gray-800 py-10">
+ <h3 class="text-center py-5 bg-white dark:bg-white shadow ">© 2025 Muneez. All rights reserved.</h3>
+
+  <!-- Dark Mode Toggle Script -->
+  <script>
+    const btn = document.getElementById('themeToggle');
+    btn.addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark');
+    });
+  </script>
+</body>
+</html>
