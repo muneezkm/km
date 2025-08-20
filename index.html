@@ -1,118 +1,322 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Muneez-Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Muneez – Portfolio</title>
+
+  <!-- Tailwind & Icons -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
   <style>
-    html {
-      scroll-behavior: smooth;
+    :root{
+      /* Accent used across the site; Easter Egg will randomize this */
+      --acc: #4f46e5; /* indigo-600 */
+      --acc-contrast: #ffffff;
+      --hero-from: #4f46e5; /* gradient from */
+      --hero-to: #9333ea;   /* gradient to   */
     }
+    html, body, nav, section, footer { transition: background-color .45s ease, color .45s ease; }
+    .reveal{ opacity:0; transform: translateY(26px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.active{ opacity:1; transform:none; }
+
+    /* Accent helpers */
+    .btn-primary{
+      background: var(--acc); color: var(--acc-contrast);
+      transition: transform .15s ease, filter .2s ease, box-shadow .2s ease;
+    }
+    .btn-primary:hover{ filter: brightness(.92); box-shadow: 0 10px 22px rgba(0,0,0,.18); transform: translateY(-1px); }
+    .link-acc{ color: var(--acc); }
+    .link-acc:hover{ filter: brightness(.9); }
+
+    /* Typewriter */
+    .typewrap{ display:inline-flex; align-items:center; gap:.25rem; font-weight:600; white-space:nowrap; }
+    .cursor{ width:2px; height:1.2em; background: currentColor; animation: blink .9s steps(1,end) infinite; }
+    @keyframes blink{ 50% { opacity:0; } }
+
+    /* Hero gradient controlled by CSS vars for Easter Egg */
+    .hero{
+      background-image: linear-gradient(135deg, var(--hero-from), var(--hero-to));
+    }
+
+    /* Skill hover */
+    .skill-item{ transition: transform .22s ease, box-shadow .22s ease; }
+    .skill-item:hover{ transform: translateY(-4px) scale(1.04); box-shadow:0 12px 26px rgba(0,0,0,.12); }
+
+    /* Project card hover */
+    .project-card{ transition: transform .25s ease, box-shadow .25s ease; }
+    .project-card:hover{ transform: translateY(-4px); box-shadow:0 14px 28px rgba(0,0,0,.18); }
+
+    /* Floating buttons */
+    .floating{ position: fixed; right: 18px; z-index: 60; }
+    #resumeFloat{ bottom: 86px; }
+    #scrollTopBtn{ bottom: 26px; display:none; }
+
+    /* Nice rounded containers */
+    .card{ border:1px solid rgba(255,255,255,.45); }
+    .dark .card{ border-color: rgba(55,65,81,.45); }
   </style>
 </head>
-<body class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200">
+<body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
 
-  <!-- 🔹 Navbar -->
-  <header class="fixed top-0 left-0 w-full bg-white dark:bg-gray-800 shadow z-50">
-    <nav class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
-      <h1 class="text-xl font-bold text-black">MUNEEZ KM</h1> <!-- 🔹 Change name -->
-      <ul class="flex space-x-6">
+  <!-- NAVBAR -->
+  <nav class="fixed top-0 left-0 w-full bg-white/90 dark:bg-gray-800/90 backdrop-blur border-b border-gray-200 dark:border-gray-700 z-50">
+    <div class="max-w-7xl mx-auto px-5 py-3 flex items-center justify-between">
+      <a href="#" class="text-2xl font-bold tracking-tight">Muneez</a>
+      <ul class="hidden md:flex items-center gap-6">
         <li><a href="#about" class="hover:text-indigo-500">About</a></li>
         <li><a href="#skills" class="hover:text-indigo-500">Skills</a></li>
         <li><a href="#education" class="hover:text-indigo-500">Education</a></li>
         <li><a href="#projects" class="hover:text-indigo-500">Projects</a></li>
         <li><a href="#resume" class="hover:text-indigo-500">Resume</a></li>
-       <li><a href="#contact" class="hover:text-indigo-500">Contact</a></li>
+        <li><a href="#contact" class="hover:text-indigo-500">Contact</a></li>
       </ul>
-      <button id="themeToggle" class="p-2 rounded-lg bg-black dark:bg-black">🌙</button>
-    </nav>
-  </header>
+      <div class="flex items-center gap-2">
+        <button id="easterEgg" class="px-3 py-1 rounded-lg border border-gray-300 dark:border-gray-600 text-sm">🎉 Surprise</button>
+        <button id="themeBtn" class="px-3 py-1 rounded-lg btn-primary text-sm" aria-label="Toggle theme">🌙</button>
+      </div>
+    </div>
+  </nav>
 
-  <main class="pt-20">
-    <!-- 🔹 About -->
-    <section id="about" class="bg-gray-200 dark:bg-gray-900 py-16 text-center">
-      <h2 class="text-3xl font-bold mb-4">About Me</h2>
-      <p class="text-lg leading-relaxed">
-        Hi, I’m <b>Muneez</b>“I am pursuing a Bachelor of Computer Applications (final year), with skills in Java, Python, SQL, and web technologies (HTML, CSS, JavaScript). I enjoy developing applications and working on innovative projects that combine creativity and logic. Currently, I am looking for internships or entry-level roles in software development and IT where I can apply my knowledge and grow as a professional.” <!-- 🔹 Change this -->
+  <main class="pt-24">
+
+    <!-- HERO -->
+    <section class="hero min-h-[50vh] sm:min-h-[50vh] text-white flex flex-col items-center justify-center text-center px-6">
+      <h1 class="text-4xl sm:text-6xl font-extrabold mb-4 drop-shadow">Hi, I’m Muneez</h1>
+      <p class="text-lg sm:text-2xl typewrap">
+        <span id="typed-text"></span><span class="cursor"></span>
       </p>
+      <div class="mt-8 flex gap-3">
+        <a href="#projects" class="px-5 py-2 rounded-lg bg-white/15 hover:bg-white/25 transition border border-white/30">View Projects</a>
+        <a href="#contact" class="px-5 py-2 rounded-lg bg-white/15 hover:bg-white/25 transition border border-white/30">Contact Me</a>
+      </div>
     </section>
 
-    <!-- 🔹 Skills -->
-    <section id="skills" class="bg-white dark:bg-white py-16">
-      <div class="max-w-4xl mx-auto px-4">
-        <h2 class="text-3xl font-bold mb-8 text-center">Skills</h2>
-        <div class="grid grid-cols-2 sm:grid-cols-3 gap-6 text-center">
-          <div class="p-4 bg-gray-200  rounded-xl shadow"> Java</div>
-          <div class="p-4 bg-gray-200 rounded-xl shadow">Basic Python</div>
-          <div class="p-4 bg-gray-200  rounded-xl shadow"> HTML</div>
-          <div class="p-4 bg-gray-200  rounded-xl shadow">Basic CSS</div>
-          <div class="p-4 bg-gray-200 rounded-xl shadow">Basic JavaScript</div>
-          <div class="p-4 bg-gray-200  rounded-xl shadow">BasicSQL</div>
-          <div class="p-4 bg-gray-200  rounded-xl shadow">C</div>
-          <div class="p-4 bg-gray-200  rounded-xl shadow">C++</div>
-          <div class="p-4 bg-gray-200  rounded-xl shadow">Basic R</div>
+    <!-- ABOUT -->
+    <section id="about" class="reveal py-16 px-6">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl font-bold mb-4">About Me</h2>
+        <p class="text-lg leading-relaxed">
+          Hi, I’m <b>Muneez</b>, a dedicated <b>Bachelor of Computer Applications (BCA)</b> student with a current
+      <b>CGPA of 8.7</b>. I’m passionate about <b>web development, programming, and problem-solving</b>, and I
+      enjoy learning new technologies to build useful, clean, and scalable software.
+      <br><br>
+      I’ve also completed a <b>Java Full Stack Development</b> course, which strengthened my skills across
+      <b>frontend, backend, and databases</b>. This hands-on experience helped me understand the full lifecycle
+      of building and deploying applications.
+      <br><br>
+      My goal is to grow as a <b>software developer</b> and contribute to impactful projects while continually
+      improving my skills in modern tools and best practices.
+        </p>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="reveal py-16 px-6 bg-gray-50 dark:bg-gray-900">
+      <div class="max-w-6xl mx-auto">
+        <h2 class="text-3xl font-bold text-center mb-10">Skills</h2>
+        <div class="grid grid-cols-3 sm:grid-cols-5 gap-8 text-center">
+          <div class="skill-item">
+            <i class="fab fa-java text-6xl" style="color:#e11d48"></i>
+            <p class="mt-2">Java</p>
+          </div>
+          <div class="skill-item">
+            <i class="fab fa-python text-6xl" style="color:#f59e0b"></i>
+            <p class="mt-2">Python</p>
+          </div>
+          <div class="skill-item">
+            <i class="fab fa-html5 text-6xl" style="color:#f97316"></i>
+            <p class="mt-2">HTML</p>
+          </div>
+          <div class="skill-item">
+            <i class="fab fa-css3-alt text-6xl" style="color:#3b82f6"></i>
+            <p class="mt-2">CSS</p>
+          </div>
+          <div class="skill-item">
+            <i class="fab fa-js text-6xl" style="color:#eab308"></i>
+            <p class="mt-2">JavaScript</p>
+          </div>
+          <div class="skill-item">
+            <i class="fa-solid fa-database text-6xl" style="color:#64748b"></i>
+            <p class="mt-2">SQL</p>
+          </div>
+          <div class="skill-item">
+            <i class="fa-solid fa-c text-6xl" style="color:#06b6d4"></i>
+            <p class="mt-2">C</p>
+          </div>
+          <div class="skill-item">
+            <i class="fa-solid fa-code text-6xl" style="color:#8b5cf6"></i>
+            <p class="mt-2">C++</p>
+          </div>
+          <div class="skill-item">
+            <i class="fa-brands fa-r-project text-6xl" style="color:#10b981"></i>
+            <p class="mt-2">R</p>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- 🔹 Education -->
-    <section id="education" class="bg-gray-200 dark:bg-gray-800 py-16">
-      <h2 class="text-3xl font-bold mb-6 text-center">Education</h2>
-      <ul class="space-y-4">
-        <li class="bg-white dark:bg-white p-4 rounded-lg shadow">
-          <b>BCA</b> :SBRR Mahajanas First Grade College ,Mysore University (2023 - 2026) <!-- 🔹 Change -->
-        </li>
-        <li class="bg-white dark:bg-white p-4 rounded-lg shadow">
-          <b>PUC</b> :St'Annes PU College , Virajpet (2020 - 2022) <!-- 🔹 Change -->
-        </li>
-      </ul>
-    </section>
-
-    <!-- 🔹 Projects -->
-    <section id="projects" class="bg-white dark:bg-white py-16">
-      <div class="max-w-4xl mx-auto px-4">
-        <h2 class="text-3xl font-bold mb-8 text-center">Projects</h2>
-        <div class="grid sm:grid-cols-1 gap-1">
-          <div class="bg-gray-200 p6 rounded-xl shadow ">
-            <h3 class="font-bold text-xl mb-2 text-center">Portfolio Website</h3>
-            <p>"A responsive portfolio website developed using HTML, CSS, and TailwindCSS, featuring structured sections for About, Education, Skills, and Contact to highlight my background and expertise." </p>
+    <!-- EDUCATION (timeline) -->
+    <section id="education" class="reveal py-20 px-6">
+      <div class="max-w-5xl mx-auto">
+        <h2 class="text-3xl font-bold text-center mb-12">Education</h2>
+        <div class="relative border-l border-gray-300 dark:border-gray-700">
+          <div class="mb-10 ml-6">
+            <span class="absolute -left-2 mt-1.5 w-4 h-4 rounded-full" style="background:var(--acc); border:2px solid #fff;"></span>
+            <h3 class="text-xl font-semibold">Bachelor of Computer Applications (BCA)</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-400">SBRR Mahajanas First Grade College, Mysore University • 2023 – 2026</p>
+            <p class="mt-2 text-gray-700 dark:text-gray-300">Focus on software development, databases, and web technologies.</p>
           </div>
+          <div class="ml-6">
+            <span class="absolute -left-2 mt-1.5 w-4 h-4 rounded-full bg-emerald-500 border-2 border-white"></span>
+            <h3 class="text-xl font-semibold">PUC</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-400">St'Annes PU College, Virajpet • 2020 – 2022</p>
+            <p class="mt-2 text-gray-700 dark:text-gray-300">Specialized in Computer Science and Mathematics.</p>
           </div>
+        </div>
       </div>
     </section>
-<section id="resume" class="bg-gray-200 dark:bg-gray-800 py-16 text-center">
-  <h2 class="text-3xl font-bold mb-6">Resume</h2>
-  <div class="p-6 bg-white dark:bg-gray-900 rounded-xl shadow-lg inline-block">
-    <a href="muneez-resume (1).pdf" 
-       target="_blank" 
-       class="px-6 py-3 bg-gray-500 text-white font-semibold rounded-lg shadow hover:bg-gray-600 transition">
-       📄 View My Resume
-    </a>
-  </div>
-</section>
 
-<!-- 🔹 Contact -->
-    <section id="contact" class="bg-white dark:bg-white py-16 text-center">
-      <h2 class="text-3xl font-bold mb-4">Contact</h2>
-      <p>Email: <a href="muneezkm@gmail.com" class="text-indigo-500">muneezkm@gmail.com</a></p> <!-- 🔹 Change -->
-      <p>Phone: +91 8050804576</p> <!-- 🔹 Change -->
-      <div class="mt-6">
-        <a href="https://github.com/muneezkm" target="_blank" class="mx-2 text-indigo-500 hover:underline">GitHub</a>
-        <a href="https://www.linkedin.com/in/muneez-munzz" target="_blank" class="mx-2 text-indigo-500 hover:underline">LinkedIn</a>
-        <a href="https://wa.me/918050804576" target="_blank" class="mx-2 text-indigo-500 hover:underline">Whatsapp</a>
+    <!-- PROJECTS (cards) -->
+    <section id="projects" class="reveal py-20 px-6 bg-gray-50 dark:bg-gray-900">
+      <div class="max-w-6xl mx-auto">
+        <h2 class="text-3xl font-bold text-center mb-12">Projects</h2>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- CARD 1 -->
+          <article class="project-card bg-white dark:bg-gray-800 rounded-2xl overflow-hidden border border-gray-200/70 dark:border-gray-700/70">
+            <img src="https://placehold.co/600x400/png?text=Portfolio+Website" alt="Project cover" class="w-full h-44 object-cover">
+            <div class="p-5">
+              <h3 class="text-xl font-semibold mb-2">Portfolio Website</h3>
+              <p class="text-gray-700 dark:text-gray-300 mb-4">Responsive personal site using HTML, Tailwind, sections for About, Skills, Education, and Contact.</p>
+              <div class="flex gap-2">
+                <a href="https://github.com/your-repo" target="_blank" class="px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 transition text-sm">
+                  <i class="fa-brands fa-github mr-1"></i> GitHub
+                </a>
+                <a href="https://your-demo-link" target="_blank" class="px-3 py-2 rounded-lg btn-primary text-sm">
+                  <i class="fa-solid fa-arrow-up-right-from-square mr-1"></i> Live
+                </a>
+              </div>
+            </div>
+          </article>
+
+         
+          <!-- CARD 3 -->
+          <article class="project-card bg-white dark:bg-gray-800 rounded-2xl overflow-hidden border border-gray-200/70 dark:border-gray-700/70">
+            <img src="https://placehold.co/600x400/png?text=Coming+Soon" alt="Project cover" class="w-full h-44 object-cover">
+            <div class="p-5">
+              <h3 class="text-xl font-semibold mb-2">Coming Soon</h3>
+              <p class="text-gray-700 dark:text-gray-300 mb-4">Add another project here with a short summary and GitHub/Demo links.</p>
+              <div class="flex gap-2">
+                <a href="#" class="px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 transition text-sm">
+                  <i class="fa-brands fa-github mr-1"></i> GitHub
+                </a>
+                <a href="#" class="px-3 py-2 rounded-lg btn-primary text-sm">
+                  <i class="fa-solid fa-arrow-up-right-from-square mr-1"></i> Live
+                </a>
+              </div>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
- 
- <section id="reserved" class="bg-gray-200 dark:gray-800 py-10">
- <h3 class="text-center py-5 bg-white dark:bg-white shadow ">© 2025 Muneez. All rights reserved.</h3>
 
-  <!-- Dark Mode Toggle Script -->
+    <!-- RESUME -->
+    <section id="resume" class="reveal py-16 px-6 text-center">
+      <h2 class="text-3xl font-bold mb-6">Resume</h2>
+      <a href="muneez-resume (1).pdf" target="_blank" class="px-6 py-3 rounded-lg btn-primary inline-flex items-center gap-2">
+        <i class="fa-solid fa-file-lines"></i> View / Download Resume
+      </a>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="reveal py-20 px-6 bg-white dark:bg-gray-900 text-center">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl font-bold mb-4">Contact</h2>
+        <p>Email: <a href="mailto:muneezkm@gmail.com" class="link-acc underline-offset-4 hover:underline">muneezkm@gmail.com</a></p>
+        <p>Phone: <a href="tel:+918050804576" class="link-acc underline-offset-4 hover:underline">+91 8050804576</a></p>
+
+        <div class="mt-6 flex justify-center gap-6 text-3xl">
+          <a href="https://github.com/muneezkm" target="_blank" class="hover:scale-125 transition" aria-label="GitHub"><i class="fab fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/muneez-munzz" target="_blank" class="hover:scale-125 transition" aria-label="LinkedIn" style="color:#0a66c2"><i class="fab fa-linkedin"></i></a>
+          <a href="https://wa.me/918050804576" target="_blank" class="hover:scale-125 transition" aria-label="WhatsApp" style="color:#25D366"><i class="fab fa-whatsapp"></i></a>
+          <a href="mailto:muneezkm@gmail.com" class="hover:scale-125 transition" aria-label="Email" style="color:#ef4444"><i class="fas fa-envelope"></i></a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-gray-100 dark:bg-gray-800 py-8 border-t border-gray-200 dark:border-gray-700 text-center">
+    <div class="flex justify-center gap-6 text-2xl mb-3">
+    </div>
+    <p class="text-sm text-gray-600 dark:text-gray-300">© 2025 Muneez. All rights reserved.</p>
+    <button id="eggFooter" class="mt-3 text-xs underline hover:no-underline">Change accent color 🎨</button>
+  </footer>
+
+  <!-- FLOATING RESUME BUTTON -->
+  <a id="resumeFloat" class="floating px-4 py-3 rounded-full btn-primary shadow-lg flex items-center gap-2" href="muneez-resume.pdf" target="_blank" title="Open Resume">
+    <i class="fa-solid fa-file-lines"></i><span class="hidden sm:inline">Resume</span>
+  </a>
+   <!-- SCROLL TO TOP -->
+  <button id="scrollTopBtn" class="floating px-3 py-3 rounded-full btn-primary shadow-lg" aria-label="Scroll to top">⬆️</button>
+
+  <!-- SCRIPTS -->
   <script>
-    const btn = document.getElementById('themeToggle');
-    btn.addEventListener('click', () => {
-      document.documentElement.classList.toggle('dark');
+    // --- Dark mode toggle (toggle on <html>) ---
+    const themeBtn = document.getElementById('themeBtn');
+    function setThemeIcon(){ themeBtn.textContent = document.documentElement.classList.contains('dark') ? '☀️' : '🌙'; }
+    themeBtn.addEventListener('click', ()=>{ document.documentElement.classList.toggle('dark'); setThemeIcon(); });
+    setThemeIcon();
+
+    // --- Typewriter effect ---
+    const typedEl = document.getElementById('typed-text');
+    const phrases = ["BCA Student", "Aspiring Software Developer", "Java • Python • SQL", "Web Enthusiast"];
+    let p=0,i=0,del=false;
+    (function type(){
+      const txt = phrases[p];
+      if(!del){ typedEl.textContent = txt.slice(0, ++i); if(i===txt.length){ del=true; return setTimeout(type, 1100); } }
+      else{ typedEl.textContent = txt.slice(0, --i); if(i===0){ del=false; p=(p+1)%phrases.length; } }
+      setTimeout(type, del? 45:70);
+    })();
+
+    // --- Scroll reveal ---
+    const rev = document.querySelectorAll('.reveal');
+    const onScroll = ()=>{
+      rev.forEach(el=>{
+        const rect = el.getBoundingClientRect();
+        if(rect.top < window.innerHeight - 100) el.classList.add('active');
+      });
+    };
+    window.addEventListener('scroll', onScroll); onScroll();
+
+    // --- Scroll to top visibility + action ---
+    const topBtn = document.getElementById('scrollTopBtn');
+    window.addEventListener('scroll', ()=>{
+      if (window.scrollY > 240) topBtn.style.display = 'inline-flex';
+      else topBtn.style.display = 'none';
     });
+    topBtn.addEventListener('click', ()=>window.scrollTo({top:0, behavior:'smooth'}));
+
+    // --- Easter Egg: randomize accent + hero gradient ---
+    const eggButtons = [document.getElementById('easterEgg'), document.getElementById('eggFooter')];
+    const palettes = [
+      {acc:'#4f46e5', from:'#4f46e5', to:'#9333ea'},   // indigo → purple
+      {acc:'#16a34a', from:'#16a34a', to:'#0891b2'},   // green → cyan
+      {acc:'#ef4444', from:'#ef4444', to:'#f59e0b'},   // red → amber
+      {acc:'#0ea5e9', from:'#0ea5e9', to:'#6366f1'},   // sky → indigo
+      {acc:'#db2777', from:'#db2777', to:'#7c3aed'},   // pink → violet
+      {acc:'#f59e0b', from:'#f59e0b', to:'#22c55e'}    // amber → green
+    ];
+    function randomizeAccent(){
+      const pick = palettes[Math.floor(Math.random()*palettes.length)];
+      document.documentElement.style.setProperty('--acc', pick.acc);
+      document.documentElement.style.setProperty('--hero-from', pick.from);
+      document.documentElement.style.setProperty('--hero-to', pick.to);
+    }
+    eggButtons.forEach(b => b && b.addEventListener('click', randomizeAccent));
   </script>
 </body>
 </html>
